@@ -2,9 +2,8 @@
 import argparse
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--fn', dest='filename',action="store", type=str, help="filename")
+parser.add_argument('--baud', dest='baud',action="store",default='115200', type=int, help="baud")
 args = parser.parse_args()
-print args.filename
-
 
 import numpy
 import serial
@@ -36,7 +35,7 @@ if __name__ == "__main__":
         filename = args.filename
         ports = [port[0] for port in list_ports.comports()]
         print "Using serial port %s; found %s" % (ports[-1], ports)
-        port = serial = serial.Serial(ports[-1],baudrate=115200, timeout=0, writeTimeout=1)
+        port = serial = serial.Serial(ports[-1],baudrate=args.baud, timeout=0, writeTimeout=1)
 
         def frameOut(colors):
                 foo = colors.copy(order='C')
@@ -48,7 +47,7 @@ if __name__ == "__main__":
 
         def loop():
                 player.step()
-               reactor.callLater(0.01, loop)
-
+                reactor.callLater(0.01, loop)
+				
         loop()
         reactor.run()
