@@ -40,7 +40,7 @@ if __name__ == "__main__":
         def frameOut(colors):
                 foo = colors.copy(order='C')
                 port.write(str.encode('*'))
-                print('*')
+                print('* ', len(foo))
                 print(foo)
                 port.write(foo)
         player = Player(filename, frameOut)
