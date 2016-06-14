@@ -20,10 +20,10 @@ class Player(object):
                 self.reloadImage()
 
         def reloadImage(self):
-                print "reloading %s" % self.imagePath
+                #print "reloading %s" % self.imagePath
                 i = Image.open(self.imagePath).convert('RGB')
                 self.image = numpy.asarray(i)
-                print self.image.shape
+               # print self.image.shape
 
         def step(self):
                 now = time.time()
@@ -34,7 +34,7 @@ class Player(object):
 if __name__ == "__main__":
         filename = args.filename
         ports = [port[0] for port in list_ports.comports()]
-        print "Using serial port %s; found %s" % (ports[-1], ports)
+       # print "Using serial port %s; found %s" % (ports[-1], ports)
         port = serial = serial.Serial(ports[-1],baudrate=args.baud, timeout=0, writeTimeout=1)
 
         def frameOut(colors):
