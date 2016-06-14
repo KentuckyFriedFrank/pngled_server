@@ -38,11 +38,23 @@ if __name__ == "__main__":
         port = serial = serial.Serial(ports[-1],baudrate=args.baud, timeout=0, writeTimeout=1)
 
         def frameOut(colors):
+                data = bytes()
                 foo = colors.copy(order='C')
+                for pixel in foo:
+                        #print(pixel)
+                        pixel = [pixel[1],pixel[2],pixel[0]]
+                        #print(pixel)
+                        #data += (bytes([pixel[1],pixel[0],pixel[2]]))
+                        #data += bytes(pixel_temp)
+                        data += bytes(pixel)
+                print(len(data))        
                 port.write(str.encode('*'))
-                print('* ', len(foo))
-                print(foo)
-                port.write(foo)
+                port.write(data)
+                #values = bytearray([0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00])
+                #port.write(values) #WHITE
+                #print('* ', len(foo))
+                #print(foo)
+                #port.write(foo)
         player = Player(filename, frameOut)
 
         def loop():
