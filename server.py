@@ -12,6 +12,8 @@ import time
 from PIL import Image
 from twisted.internet import reactor
 
+
+
 class Player(object):
         def __init__(self, imagePath, frameOutClosure):
                 self.imagePath = imagePath
@@ -21,8 +23,12 @@ class Player(object):
 
         def reloadImage(self):
                 # print(reloading %s" % self.imagePath)
-                i = Image.open(self.imagePath).convert('RGB')
-                self.image = numpy.asarray(i)
+                i = Image.open(self.imagePath).convert('RGB')   
+                print('image size(WxH): ', i.size) 
+                maxsize = ((i.size[0],576))
+                out = i.resize(maxsize)
+                print('image size(WxH): ', out.size) 
+                self.image = numpy.asarray(out)
                 # print self.image.shape
 
         def step(self):
