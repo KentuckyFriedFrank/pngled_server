@@ -20,10 +20,10 @@ class Player(object):
                 self.reloadImage()
 
         def reloadImage(self):
-                #print "reloading %s" % self.imagePath
+                # print(reloading %s" % self.imagePath)
                 i = Image.open(self.imagePath).convert('RGB')
                 self.image = numpy.asarray(i)
-               # print self.image.shape
+                # print self.image.shape
 
         def step(self):
                 now = time.time()
@@ -34,27 +34,13 @@ class Player(object):
 if __name__ == "__main__":
         filename = args.filename
         ports = [port[0] for port in list_ports.comports()]
-       # print "Using serial port %s; found %s" % (ports[-1], ports)
-        port = serial = serial.Serial(ports[-1],baudrate=args.baud, timeout=0, writeTimeout=1)
+        print("Using serial port ", ports[-1])
+        port = serial.Serial(ports[-1],baudrate=args.baud, timeout=0, writeTimeout=1)
 
         def frameOut(colors):
-                data = bytes()
-                foo = colors.copy(order='C')
-                for pixel in foo:
-                        #print(pixel)
-                        pixel = [pixel[1],pixel[2],pixel[0]]
-                        #print(pixel)
-                        #data += (bytes([pixel[1],pixel[0],pixel[2]]))
-                        #data += bytes(pixel_temp)
-                        data += bytes(pixel)
-                print(len(data))        
+                #print(len(colors))
                 port.write(str.encode('*'))
-                port.write(data)
-                #values = bytearray([0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00])
-                #port.write(values) #WHITE
-                #print('* ', len(foo))
-                #print(foo)
-                #port.write(foo)
+                port.write(bytearray(colors.copy(order='C')))
         player = Player(filename, frameOut)
 
         def loop():

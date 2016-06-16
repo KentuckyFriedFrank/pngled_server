@@ -64,7 +64,7 @@
 // are arranged.  If 0, each strip begins on the left for its first row,
 // then goes right to left for its second row, then left to right,
 // zig-zagging for each successive row.
-#define LED_WIDTH      7   // number of LEDs horizontally
+#define LED_WIDTH      72   // number of LEDs horizontally
 #define LED_HEIGHT     8   // number of LEDs vertically (must be multiple of 8)
 #define LED_LAYOUT     0    // 0 = even rows left->right, 1 = even rows right->left
 
@@ -122,7 +122,7 @@ void setup() {
   leds.setPixel(6, BLUE);
   leds.setPixel(7, RED);
   leds.show();
-  delay(1000);
+  delay(2000);
   leds.setPixel(0, 0x000000);
   leds.setPixel(1, 0x000000);
   leds.setPixel(2, 0x000000);
